@@ -1,0 +1,41 @@
+# init
+ISTART = 0
+ICHARG = 2
+
+# spin
+ISPIN  = 1
+
+# accuracy
+PREC   = normal
+ENCUT  = 300
+
+# scf
+ALGO   = normal
+NELMIN = 4
+NELM   = 15
+EDIFF  = 1e-8
+
+# smearing
+ISMEAR = 0 
+SIGMA  = 0.1
+
+# para
+KPAR   = 1 
+LPLANE = .TRUE.
+
+# write
+LWAVE  =.FALSE.
+LCHARG =.FALSE.
+
+# hse06
+LHFCALC  = F
+PREFOCK  = Normal
+NKRED    = 1
+AEXX     = 0.25
+HFSCREEN = 0.2   
+
+# gpu
+NCORE     = 1
+NSIM      = 4
+LREAL     = AUTO
+LSCAAWARE = .TRUE.
