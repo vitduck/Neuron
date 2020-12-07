@@ -1,0 +1,72 @@
+# Precompiler options
+CPP_OPTIONS= -DHOST=\"intel/cuda/ompi/skl\" \
+             -DMPI                          \
+             -Duse_collective               \
+             -Davoidalloc                   \
+             -Duse_shmem                    \
+			 -DscaLAPACK                    \
+             -Dtbdyn		                
+
+CPP        = fpp -f_com=no -free -w0  $*$(FUFFIX) $*$(SUFFIX) $(CPP_OPTIONS)
+
+FC         = /scratch/optpar01/apps/build/mpi/intel/18.0.2/openmpi/4.0.5/cuda/10.0/bin/mpifort
+FCL        = $(FC) -mkl=sequential -lstdc++
+
+FREE       = -free -names lowercase
+
+FFLAGS     = -assume byterecl -w
+OFLAG      = -O2 -fPIC -xCORE-AVX512
+OFLAG_IN   = $(OFLAG)
+DEBUG      = -O0
+
+MKL_PATH   = $(MKLROOT)/lib/intel64
+BLAS       =
+LAPACK     =
+BLACS      = -lmkl_blacs_openmpi_lp64
+SCALAPACK  = -lmkl_scalapack_lp64 
+
+OBJECTS    = fftmpiw.o fftmpi_map.o fft3dlib.o fftw3d.o
+
+INCS       =-I$(MKLROOT)/include/fftw 
+LLIBS      = $(BLACS) $(SCALAPACK) $(LAPACK) $(BLAS) 
+
+OBJECTS_O1 += fftw3d.o fftmpi.o fftmpiw.o
+OBJECTS_O2 += fft3dlib.o
+
+# For what used to be vasp.5.lib
+CPP_LIB    = $(CPP)
+FC_LIB     = $(FC)
+CC_LIB     = icc
+CFLAGS_LIB = -O
+FFLAGS_LIB = -O1
+FREE_LIB   = $(FREE)
+
+OBJECTS_LIB= linpack_double.o getshmem.o
+
+# For the parser library
+CXX_PARS   = icpc
+
+LIBS       += parser
+LLIBS      += -Lparser -lparser -lstdc++
+
+# Normally no need to change this
+SRCDIR     = ../../src
+BINDIR     = ../../bin
+
+#================================================
+# GPU Stuff
+
+CPP_GPU    = -DCUDA_GPU -DRPROMU_CPROJ_OVERLAP -DUSE_PINNED_MEMORY -DCUFFT_MIN=28
+
+OBJECTS_GPU = fftmpiw.o fftmpi_map.o fft3dlib.o fftw3d_gpu.o fftmpiw_gpu.o
+
+CC         = icc
+CXX        = icpc
+
+CUDA_ROOT  = /apps/cuda/10.0
+NVCC       := $(CUDA_ROOT)/bin/nvcc -ccbin=icc
+CUDA_LIB   := -L$(CUDA_ROOT)/lib64 -lnvToolsExt -lcudart -lcuda -lcufft -lcublas
+
+GENCODE_ARCH    := -gencode=arch=compute_70,code=\"sm_70,compute_70\"
+
+MPI_INC = /scratch/optpar01/apps/build/mpi/intel/18.0.2/openmpi/4.0.5/cuda/10.0/include
