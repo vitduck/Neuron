@@ -7,12 +7,12 @@ SHELL = /bin/sh
 # compiler/linker settings
 # specify flags and libraries needed for your compiler
 
-CC         = /scratch/optpar01/apps/build/mpi/intel/18.0.2/mvapich2/2.3.4/cuda/10.1/bin/mpicxx
-CCFLAGS    = -O2 -xCORE-AVX512 -mkl=parallel -fno-alias -ansi-alias -restrict -qoverride-limits -qopt-zmm-usage=high -qopenmp -I/apps/cuda/10.1/include
+CC         = /scratch/optpar01/apps/build/mpi/intel/18.0.2/mvapich2/2.3.5/cuda/10.1/bin/mpicxx
+CCFLAGS    = -O2 -xAVX -mkl=parallel -fno-alias -ansi-alias -restrict -qoverride-limits -qopt-zmm-usage=high -qopenmp -I/apps/cuda/10.1/include
 SHFLAGS    = -fPIC
 DEPFLAGS   = -M
 
-LINK       = /scratch/optpar01/apps/build/mpi/intel/18.0.2/mvapich2/2.3.4/cuda/10.1/bin/mpicxx
+LINK       = /scratch/optpar01/apps/build/mpi/intel/18.0.2/mvapich2/2.3.5/cuda/10.1/bin/mpicxx
 LINKFLAGS  = -L/apps/cuda/10.1/lib64 -qopenmp
 LIB        = -lstdc++
 SIZE       = size
@@ -21,7 +21,7 @@ ARCHIVE    =  ar
 ARFLAGS    = -rc
 SHLIBFLAGS = -shared
 
-KOKKOS_ARCH    = SKX
+KOKKOS_ARCH    = SNB
 KOKKOS_DEVICES = OpenMP
 
 # ---------------------------------------------------------------------

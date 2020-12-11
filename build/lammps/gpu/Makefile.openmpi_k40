@@ -11,7 +11,7 @@ ifeq ($(CUDA_HOME),)
 CUDA_HOME = /apps/cuda/10.0
 endif
 
-NVCC = nvcc --std=c++03
+NVCC = nvcc
 
 # obsolete hardware. not supported by current drivers anymore.
 #CUDA_ARCH = -arch=sm_13
@@ -36,7 +36,7 @@ NVCC = nvcc --std=c++03
 #CUDA_ARCH = -arch=sm_61
 
 # Volta hardware
-CUDA_ARCH = -arch=sm_70
+CUDA_ARCH = -arch=sm_35
 
 # Turing hardware
 #CUDA_ARCH = -arch=sm_75

@@ -8,7 +8,7 @@
 EXTRAMAKE = Makefile.lammps.standard
 
 ifeq ($(CUDA_HOME),)
-CUDA_HOME = /apps/cuda/10.1
+CUDA_HOME = /apps/cuda/10.0
 endif
 
 NVCC = nvcc --std=c++03
